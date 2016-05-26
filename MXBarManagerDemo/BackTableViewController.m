@@ -39,6 +39,16 @@ static const CGFloat headerImageHeight = 260.0f;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self initBaseData];
+    [self initBarManager];
+}
+
+- (void)initBarManager {
+    [MXNavigationBarManager managerWithController:self];
+    [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
+    [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
+    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
+    [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
     
 }
 
@@ -55,7 +65,6 @@ static const CGFloat headerImageHeight = 260.0f;
 
 #pragma mark - scrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"222 currentOffset = %f ",scrollView.contentOffset.y);
     [MXNavigationBarManager changeAlphaWithCurrentOffset:scrollView.contentOffset.y];
 }
 

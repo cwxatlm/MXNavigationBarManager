@@ -10,7 +10,6 @@
 #import "BackTableViewController.h"
 #import "MXNavigationBarManager.h"
 
-#define NSLOGS NSLog(@"%s", __func__);
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 static NSString *const kMXCellIdentifer = @"kMXCellIdentifer";
 static const CGFloat headerImageHeight = 260.0f;
@@ -23,19 +22,13 @@ static const CGFloat headerImageHeight = 260.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLOGS
     self.tableView.delegate = self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    NSLOGS
+    [MXNavigationBarManager reStoreWithFullStatus];
     self.tableView.delegate = nil;
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    NSLOGS
 }
 
 - (void)viewDidLoad {
@@ -48,15 +41,18 @@ static const CGFloat headerImageHeight = 260.0f;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self initBaseData];
-    [self initBarManager];
+    //[self initBarManager];
 }
 
 - (void)initBarManager {
+    
     [MXNavigationBarManager managerWithController:self];
     [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
-    [MXNavigationBarManager setZeroAlphaTintColor:[UIColor blackColor]];
+    [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
+    [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
     [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
-    [MXNavigationBarManager setZeroAlphaBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
+    
 }
 
 - (void)initBaseData {
@@ -79,7 +75,6 @@ static const CGFloat headerImageHeight = 260.0f;
 
 #pragma mark - scrollView delegate 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"111 currentOffset = %f ",scrollView.contentOffset.y);
     [MXNavigationBarManager changeAlphaWithCurrentOffset:scrollView.contentOffset.y];
 }
 
@@ -97,6 +92,10 @@ static const CGFloat headerImageHeight = 260.0f;
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[[BackTableViewController alloc] initWithStyle:UITableViewStylePlain] animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.
