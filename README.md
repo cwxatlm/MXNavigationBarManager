@@ -51,3 +51,5 @@ pod 'MXNavigationBarManager'
     [MXNavigationBarManager reStoreWithZeroStatus];
 }
 ```
+
+### 更多用法请参考Demo
