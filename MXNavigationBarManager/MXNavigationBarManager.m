@@ -8,11 +8,12 @@
 
 #import "MXNavigationBarManager.h"
 
-static const CGFloat kNavigationBarHeight = 64.0f;
-static const CGFloat kDefaultFullOffset   = 200.0f;
-static const float   kMaxAlphaValue       = 1.0f;
-static const float   kMinAlphaValue       = 0.0f;
-static const float   kDefaultAnimationTime = 0.3f;
+static const CGFloat kNavigationBarHeight  = 64.0f;
+static const CGFloat kDefaultFullOffset    = 200.0f;
+static const float   kMaxAlphaValue        = 1.0f;
+static const float   kMinAlphaValue        = 0.0f;
+static const float   kDefaultAnimationTime = 0.35f;
+static const float   KdefaultDelayTime     = 0.1f;
 
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 #define BACKGROUNDVIEW_FRAME CGRectMake(0, -20, CGRectGetWidth(SCREEN_RECT), kNavigationBarHeight)
@@ -21,6 +22,7 @@ static const float   kDefaultAnimationTime = 0.3f;
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UINavigationBar *selfNavigationBar;
+@property (nonatomic, strong) UINavigationItem *selfNavigationItem;
 
 @property (nonatomic, strong) UIImageView *saveImage;
 @property (nonatomic, strong) UIColor *saveTintColor;
@@ -29,11 +31,13 @@ static const float   kDefaultAnimationTime = 0.3f;
 
 @property (nonatomic, assign) BOOL setFull;
 @property (nonatomic, assign) BOOL setZero;
+@property (nonatomic, assign) BOOL setChange;
 
 @end
 
 @implementation MXNavigationBarManager
 
+#pragma mark - property set
 + (void)setBarColor:(UIColor *)color {
     [self sharedManager].barColor = color;
     [self sharedManager].backgroundImageView.backgroundColor = color;
@@ -92,8 +96,36 @@ static const float   kDefaultAnimationTime = 0.3f;
     [self sharedManager].continues = continues;
 }
 
+#pragma mark - Set NavigationItem
++ (void)setRightBarButtonItem:(UIBarButtonItem *)rightBarButtonItem {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self sharedManager].selfNavigationItem.rightBarButtonItem = rightBarButtonItem;
+    });
+}
+
++ (void)setLeftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self sharedManager].selfNavigationItem.leftBarButtonItem = leftBarButtonItem;
+    });
+}
+
++ (void)setRightBarButtonItems:(NSArray *)rightBarButtonItems {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self sharedManager].selfNavigationItem.rightBarButtonItems = rightBarButtonItems;
+    });
+}
+
++ (void)setLeftBarButtonItems:(NSArray *)leftBarButtonItems {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self sharedManager].selfNavigationItem.leftBarButtonItems = leftBarButtonItems;
+    });
+}
+
+#pragma mark - Public Method
 + (void)managerWithController:(UIViewController *)viewController {
     [self replaceSystemNavigationBarImageView:viewController.navigationController.navigationBar];
+    [self sharedManager].selfNavigationBar = viewController.navigationController.navigationBar;
+    [self sharedManager].selfNavigationItem = viewController.navigationItem;
 }
 
 + (void)changeAlphaWithCurrentOffset:(CGFloat)currentOffset {
@@ -109,10 +141,14 @@ static const float   kDefaultAnimationTime = 0.3f;
                 [UIView animateWithDuration:kDefaultAnimationTime animations:^{
                     [self setNavigationBarColorWithAlpha:manager.maxAlphaValue];
                 }];
+                manager.setChange = YES;
             } else {
-                [UIView animateWithDuration:kDefaultAnimationTime animations:^{
-                    [self setNavigationBarColorWithAlpha:manager.minAlphaValue];
-                }];
+                if (manager.setChange) {
+                    [UIView animateWithDuration:kDefaultAnimationTime animations:^{
+                        [self setNavigationBarColorWithAlpha:manager.minAlphaValue];
+                    }];
+                    manager.setChange = NO;
+                }
             }
         } else {
             [self setNavigationBarColorWithAlpha:currentAlpha];
@@ -173,6 +209,9 @@ static const float   kDefaultAnimationTime = 0.3f;
             manager.setFull = NO;
             manager.setZero  = YES;
         } else {
+            if (manager.reversal) {
+                manager.setFull = YES;
+            }
             return;
         }
         manager.selfNavigationBar.tintColor = manager.fullAlphaTintColor;
@@ -220,7 +259,6 @@ static const float   kDefaultAnimationTime = 0.3f;
     [navigationBar.subviews.firstObject removeFromSuperview];
     [navigationBar addSubview:[self sharedManager].backgroundImageView];
     [navigationBar sendSubviewToBack:[self sharedManager].backgroundImageView];
-    [self sharedManager].selfNavigationBar = navigationBar;
 }
 
 + (void)setTitleColorWithColor:(UIColor *)color {

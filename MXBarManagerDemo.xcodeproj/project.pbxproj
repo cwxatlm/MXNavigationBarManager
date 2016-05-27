@@ -7,17 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18F790B71CF7D6A300A58A2B /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F790B61CF7D6A300A58A2B /* MenuTableViewController.m */; };
+		18F790C21CF80A7A00A58A2B /* TranslateTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F790C11CF80A7A00A58A2B /* TranslateTableViewController.m */; };
+		18F790C51CF81D0E00A58A2B /* ReversalTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F790C41CF81D0E00A58A2B /* ReversalTableViewController.m */; };
+		18F790CA1CF828B500A58A2B /* Gif1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 18F790C91CF828B500A58A2B /* Gif1.gif */; };
 		18FF480E1CF580140046A695 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF480D1CF580140046A695 /* main.m */; };
 		18FF48111CF580140046A695 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF48101CF580140046A695 /* AppDelegate.m */; };
 		18FF48171CF580140046A695 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FF48151CF580140046A695 /* Main.storyboard */; };
 		18FF48191CF580140046A695 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FF48181CF580140046A695 /* Assets.xcassets */; };
 		18FF481C1CF580140046A695 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18FF481A1CF580140046A695 /* LaunchScreen.storyboard */; };
 		18FF48261CF5804F0046A695 /* MXNavigationBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF48251CF5804F0046A695 /* MXNavigationBarManager.m */; };
-		18FF48291CF581630046A695 /* MXTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF48281CF581630046A695 /* MXTableViewController.m */; };
-		18FF482C1CF598430046A695 /* BackTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF482B1CF598430046A695 /* BackTableViewController.m */; };
+		18FF48291CF581630046A695 /* GradientTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF48281CF581630046A695 /* GradientTableViewController.m */; };
+		18FF482C1CF598430046A695 /* MutationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FF482B1CF598430046A695 /* MutationTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18F790B51CF7D6A300A58A2B /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
+		18F790B61CF7D6A300A58A2B /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
+		18F790C01CF80A7A00A58A2B /* TranslateTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslateTableViewController.h; sourceTree = "<group>"; };
+		18F790C11CF80A7A00A58A2B /* TranslateTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslateTableViewController.m; sourceTree = "<group>"; };
+		18F790C31CF81D0E00A58A2B /* ReversalTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReversalTableViewController.h; sourceTree = "<group>"; };
+		18F790C41CF81D0E00A58A2B /* ReversalTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReversalTableViewController.m; sourceTree = "<group>"; };
+		18F790C91CF828B500A58A2B /* Gif1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Gif1.gif; sourceTree = "<group>"; };
 		18FF48091CF580140046A695 /* MXBarManagerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MXBarManagerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FF480D1CF580140046A695 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18FF480F1CF580140046A695 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,10 +39,10 @@
 		18FF481D1CF580140046A695 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18FF48241CF5804F0046A695 /* MXNavigationBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXNavigationBarManager.h; sourceTree = "<group>"; };
 		18FF48251CF5804F0046A695 /* MXNavigationBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXNavigationBarManager.m; sourceTree = "<group>"; };
-		18FF48271CF581630046A695 /* MXTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXTableViewController.h; sourceTree = "<group>"; };
-		18FF48281CF581630046A695 /* MXTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXTableViewController.m; sourceTree = "<group>"; };
-		18FF482A1CF598430046A695 /* BackTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackTableViewController.h; sourceTree = "<group>"; };
-		18FF482B1CF598430046A695 /* BackTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackTableViewController.m; sourceTree = "<group>"; };
+		18FF48271CF581630046A695 /* GradientTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientTableViewController.h; sourceTree = "<group>"; };
+		18FF48281CF581630046A695 /* GradientTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientTableViewController.m; sourceTree = "<group>"; };
+		18FF482A1CF598430046A695 /* MutationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutationTableViewController.h; sourceTree = "<group>"; };
+		18FF482B1CF598430046A695 /* MutationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MutationTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,11 +56,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18F790C61CF826DC00A58A2B /* GifPicture */ = {
+			isa = PBXGroup;
+			children = (
+				18F790C91CF828B500A58A2B /* Gif1.gif */,
+			);
+			path = GifPicture;
+			sourceTree = "<group>";
+		};
 		18FF48001CF580140046A695 = {
 			isa = PBXGroup;
 			children = (
 				18FF48231CF580370046A695 /* MXNavigationBarManager */,
 				18FF480B1CF580140046A695 /* MXBarManagerDemo */,
+				18F790C61CF826DC00A58A2B /* GifPicture */,
 				18FF480A1CF580140046A695 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -67,10 +87,16 @@
 			children = (
 				18FF480F1CF580140046A695 /* AppDelegate.h */,
 				18FF48101CF580140046A695 /* AppDelegate.m */,
-				18FF48271CF581630046A695 /* MXTableViewController.h */,
-				18FF48281CF581630046A695 /* MXTableViewController.m */,
-				18FF482A1CF598430046A695 /* BackTableViewController.h */,
-				18FF482B1CF598430046A695 /* BackTableViewController.m */,
+				18F790B51CF7D6A300A58A2B /* MenuTableViewController.h */,
+				18F790B61CF7D6A300A58A2B /* MenuTableViewController.m */,
+				18F790C01CF80A7A00A58A2B /* TranslateTableViewController.h */,
+				18F790C11CF80A7A00A58A2B /* TranslateTableViewController.m */,
+				18FF48271CF581630046A695 /* GradientTableViewController.h */,
+				18FF48281CF581630046A695 /* GradientTableViewController.m */,
+				18FF482A1CF598430046A695 /* MutationTableViewController.h */,
+				18FF482B1CF598430046A695 /* MutationTableViewController.m */,
+				18F790C31CF81D0E00A58A2B /* ReversalTableViewController.h */,
+				18F790C41CF81D0E00A58A2B /* ReversalTableViewController.m */,
 				18FF48151CF580140046A695 /* Main.storyboard */,
 				18FF48181CF580140046A695 /* Assets.xcassets */,
 				18FF481A1CF580140046A695 /* LaunchScreen.storyboard */,
@@ -157,6 +183,7 @@
 				18FF481C1CF580140046A695 /* LaunchScreen.storyboard in Resources */,
 				18FF48191CF580140046A695 /* Assets.xcassets in Resources */,
 				18FF48171CF580140046A695 /* Main.storyboard in Resources */,
+				18F790CA1CF828B500A58A2B /* Gif1.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,9 +195,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				18FF48261CF5804F0046A695 /* MXNavigationBarManager.m in Sources */,
-				18FF482C1CF598430046A695 /* BackTableViewController.m in Sources */,
+				18FF482C1CF598430046A695 /* MutationTableViewController.m in Sources */,
+				18F790C21CF80A7A00A58A2B /* TranslateTableViewController.m in Sources */,
+				18F790C51CF81D0E00A58A2B /* ReversalTableViewController.m in Sources */,
 				18FF48111CF580140046A695 /* AppDelegate.m in Sources */,
-				18FF48291CF581630046A695 /* MXTableViewController.m in Sources */,
+				18FF48291CF581630046A695 /* GradientTableViewController.m in Sources */,
+				18F790B71CF7D6A300A58A2B /* MenuTableViewController.m in Sources */,
 				18FF480E1CF580140046A695 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
