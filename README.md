@@ -6,7 +6,7 @@ Easy way to change your navigationBar color
 使用  How to Use it
 =====
 
-## Installation
+## 安装
 
 ### CocoaPods
 
@@ -24,6 +24,8 @@ pod 'MXNavigationBarManager'
     [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
     [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
     [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setZeroAlphaOffset:-64];
+    [MXNavigationBarManager setFullAlphaOffset:200];
     [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
     [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
 ```
