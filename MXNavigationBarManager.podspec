@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|  
   s.name         = 'MXScrollView'
-  s.version      = ‘1.0’
-  s.summary      = ‘The easy way to change you navigationBar’
+  s.version      = '1.0'
+  s.summary      = 'The easy way to change you navigationBar'
   s.homepage     = 'https://github.com/cwxatlm/MXNavigationBarManager'
   s.license      = 'MIT'
   s.authors      = {'wx chen' => '524200634@qq.com'}
