@@ -45,6 +45,8 @@ static const CGFloat headerImageHeight = 260.0f;
     [MXNavigationBarManager setBarColor:[UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1]];
     [MXNavigationBarManager setTintColor:[UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1]];
     [MXNavigationBarManager setStatusBarStyle:UIStatusBarStyleDefault];
+    [MXNavigationBarManager setZeroAlphaOffset:-64];
+    [MXNavigationBarManager setFullAlphaOffset:200];
     [MXNavigationBarManager setFullAlphaTintColor:[UIColor whiteColor]];
     [MXNavigationBarManager setFullAlphaBarStyle:UIStatusBarStyleLightContent];
 }
