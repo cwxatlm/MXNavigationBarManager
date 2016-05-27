@@ -63,7 +63,7 @@ static const CGFloat headerImageHeight = 260.0f;
     self.tableView.tableHeaderView = headerImageView;
     
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"right_arrow"]  style:UIBarButtonItemStylePlain target:self action:@selector(pushToBackView)];
-    [MXNavigationBarManager setRightBarButtonItem:barButtonItem];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 - (void)pushToBackView {

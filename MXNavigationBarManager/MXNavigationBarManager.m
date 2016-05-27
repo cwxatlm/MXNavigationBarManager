@@ -13,7 +13,6 @@ static const CGFloat kDefaultFullOffset    = 200.0f;
 static const float   kMaxAlphaValue        = 1.0f;
 static const float   kMinAlphaValue        = 0.0f;
 static const float   kDefaultAnimationTime = 0.35f;
-static const float   KdefaultDelayTime     = 0.1f;
 
 #define SCREEN_RECT [UIScreen mainScreen].bounds
 #define BACKGROUNDVIEW_FRAME CGRectMake(0, -20, CGRectGetWidth(SCREEN_RECT), kNavigationBarHeight)
@@ -22,9 +21,9 @@ static const float   KdefaultDelayTime     = 0.1f;
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UINavigationBar *selfNavigationBar;
-@property (nonatomic, strong) UINavigationItem *selfNavigationItem;
 
-@property (nonatomic, strong) UIImageView *saveImage;
+@property (nonatomic, strong) UIImage *saveImage;
+@property (nonatomic, strong) UIColor *saveColor;
 @property (nonatomic, strong) UIColor *saveTintColor;
 @property (nonatomic, strong) NSDictionary *saveTitleAttribute;
 @property (nonatomic, assign) UIStatusBarStyle saveBarStyle;
@@ -96,36 +95,14 @@ static const float   KdefaultDelayTime     = 0.1f;
     [self sharedManager].continues = continues;
 }
 
-#pragma mark - Set NavigationItem
-+ (void)setRightBarButtonItem:(UIBarButtonItem *)rightBarButtonItem {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sharedManager].selfNavigationItem.rightBarButtonItem = rightBarButtonItem;
-    });
-}
-
-+ (void)setLeftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sharedManager].selfNavigationItem.leftBarButtonItem = leftBarButtonItem;
-    });
-}
-
-+ (void)setRightBarButtonItems:(NSArray *)rightBarButtonItems {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sharedManager].selfNavigationItem.rightBarButtonItems = rightBarButtonItems;
-    });
-}
-
-+ (void)setLeftBarButtonItems:(NSArray *)leftBarButtonItems {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(KdefaultDelayTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sharedManager].selfNavigationItem.leftBarButtonItems = leftBarButtonItems;
-    });
-}
-
 #pragma mark - Public Method
 + (void)managerWithController:(UIViewController *)viewController {
-    [self replaceSystemNavigationBarImageView:viewController.navigationController.navigationBar];
-    [self sharedManager].selfNavigationBar = viewController.navigationController.navigationBar;
-    [self sharedManager].selfNavigationItem = viewController.navigationItem;
+    UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
+    [self sharedManager].saveImage = ((UIImageView *)navigationBar.subviews.firstObject).image;
+    [self sharedManager].backgroundImageView = navigationBar.subviews.firstObject;
+    [self sharedManager].selfNavigationBar = navigationBar;
+    [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setShadowImage:[UIImage new]];
 }
 
 + (void)changeAlphaWithCurrentOffset:(CGFloat)currentOffset {
@@ -161,11 +138,8 @@ static const float   KdefaultDelayTime     = 0.1f;
 + (void)saveWithController:(UIViewController *)viewController {
     MXNavigationBarManager *manager = [self sharedManager];
     UINavigationBar *bar = viewController.navigationController.navigationBar;
-    for (UIView *view in bar.subviews) {
-        if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) == kNavigationBarHeight) {
-            manager.saveImage = (UIImageView *)view;
-        }
-    }
+    manager.saveImage = ((UIImageView *)bar.subviews.firstObject).image;
+    manager.saveColor = bar.subviews.firstObject.backgroundColor;
     manager.saveTintColor = bar.tintColor;
     manager.saveTitleAttribute = bar.titleTextAttributes;
     manager.saveBarStyle = [UIApplication sharedApplication].statusBarStyle;
@@ -181,13 +155,8 @@ static const float   KdefaultDelayTime     = 0.1f;
 
 + (void)reStore {
     MXNavigationBarManager *manager = [self sharedManager];
-    for (UIView *view in manager.selfNavigationBar.subviews) {
-        if ([view isKindOfClass:[UIImageView class]] && CGRectGetHeight(view.frame) == kNavigationBarHeight) {
-            [view removeFromSuperview];
-            [manager.selfNavigationBar addSubview:manager.saveImage];
-            [manager.selfNavigationBar sendSubviewToBack:manager.saveImage];
-        }
-    }
+    [manager.selfNavigationBar setBackgroundImage:manager.saveImage forBarMetrics:UIBarMetricsDefault];
+    manager.selfNavigationBar.subviews.firstObject.backgroundColor = manager.saveColor;
     manager.selfNavigationBar.tintColor = manager.saveTintColor;
     manager.selfNavigationBar.titleTextAttributes = manager.saveTitleAttribute;
     [[UIApplication sharedApplication] setStatusBarStyle:manager.saveBarStyle];
@@ -252,13 +221,6 @@ static const float   KdefaultDelayTime     = 0.1f;
     manager.setFull = YES;
     manager.allChange = YES;
     manager.continues = YES;
-}
-
-+ (void)replaceSystemNavigationBarImageView:(UINavigationBar *)navigationBar {
-    [self sharedManager].saveImage = navigationBar.subviews.firstObject;
-    [navigationBar.subviews.firstObject removeFromSuperview];
-    [navigationBar addSubview:[self sharedManager].backgroundImageView];
-    [navigationBar sendSubviewToBack:[self sharedManager].backgroundImageView];
 }
 
 + (void)setTitleColorWithColor:(UIColor *)color {

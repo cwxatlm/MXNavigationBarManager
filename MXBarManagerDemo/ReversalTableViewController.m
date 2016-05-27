@@ -68,7 +68,7 @@ static const CGFloat headerImageHeight = 260.0f;
     
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reversal" style:UIBarButtonItemStylePlain target:self action:@selector(mutation)];
     
-    [MXNavigationBarManager setRightBarButtonItem:barButtonItem];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 - (void)mutation {

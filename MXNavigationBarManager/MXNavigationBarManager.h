@@ -46,12 +46,6 @@
 + (void)setReversal:(BOOL)reversal;
 + (void)setContinues:(BOOL)continues;
 
-//Please use these method to set you naviagtionItem
-+ (void)setRightBarButtonItem:(UIBarButtonItem *)rightBarButtonItem;
-+ (void)setLeftBarButtonItem:(UIBarButtonItem *)leftBarButtonItem;
-+ (void)setRightBarButtonItems:(NSArray *)rightBarButtonItems;
-+ (void)setLeftBarButtonItems:(NSArray *)leftBarButtonItems;
-
 + (void)managerWithController:(UIViewController *)viewController;//you should use this method to init MXNavigationManager
 
 + (void)changeAlphaWithCurrentOffset:(CGFloat)currentOffset;// implemention this method in @selectot(scrollView: scrollViewDidScroll)
