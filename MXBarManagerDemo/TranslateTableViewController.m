@@ -15,6 +15,8 @@ static const CGFloat headerImageHeight = 260.0f;
 
 @interface TranslateTableViewController ()
 
+@property (nonatomic, strong) UINavigationBar *naviCopy;
+
 @end
 
 @implementation TranslateTableViewController
@@ -28,17 +30,18 @@ static const CGFloat headerImageHeight = 260.0f;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.tableView.delegate = nil;
-    [MXNavigationBarManager reStore];
+    [MXNavigationBarManager reStoreToSystemNavigationBar];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initBaseData];
+    
 }
+
 
 - (void)initBarManager {
     //optional, save navigationBar status
-    [MXNavigationBarManager saveWithController:self];
     
     //required
     [MXNavigationBarManager managerWithController:self];

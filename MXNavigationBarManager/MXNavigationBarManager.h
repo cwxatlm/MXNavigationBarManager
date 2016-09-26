@@ -50,12 +50,6 @@
 
 + (void)changeAlphaWithCurrentOffset:(CGFloat)currentOffset;// implemention this method in @selectot(scrollView: scrollViewDidScroll)
 
-+ (void)saveWithController:(UIViewController *)viewController;//save now navigationBar status, use reStore to recover it
-
-+ (void)reStoreWithZeroStatus;//recover status in zeroAlpha status
-
-+ (void)reStoreWithFullStatus;//recover status in fullAlpha status
-
-+ (void)reStore;// recover status which you had saved in @selector(saveWithController:)
++ (void)reStoreToSystemNavigationBar; //change the navigationBar to system style
 
 @end

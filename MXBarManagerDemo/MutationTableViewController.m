@@ -27,10 +27,10 @@ static const CGFloat headerImageHeight = 260.0f;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.tableView.delegate = nil;
-    [MXNavigationBarManager reStoreWithFullStatus];
     
     //optional
     [MXNavigationBarManager setContinues:YES];
+    [MXNavigationBarManager reStoreToSystemNavigationBar];
 }
 
 - (void)viewDidLoad {

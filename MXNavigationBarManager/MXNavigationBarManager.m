@@ -10,7 +10,7 @@
 
 static const CGFloat kNavigationBarHeight  = 64.0f;
 static const CGFloat kDefaultFullOffset    = 200.0f;
-static const float   kMaxAlphaValue        = 1.0f;
+static const float   kMaxAlphaValue        = 0.995f;
 static const float   kMinAlphaValue        = 0.0f;
 static const float   kDefaultAnimationTime = 0.35f;
 
@@ -19,8 +19,8 @@ static const float   kDefaultAnimationTime = 0.35f;
 
 @interface MXNavigationBarManager ()
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UINavigationBar *selfNavigationBar;
+@property (nonatomic, strong) UINavigationController *selfNavigationController;
 
 @property (nonatomic, strong) UIImage *saveImage;
 @property (nonatomic, strong) UIColor *saveColor;
@@ -39,7 +39,6 @@ static const float   kDefaultAnimationTime = 0.35f;
 #pragma mark - property set
 + (void)setBarColor:(UIColor *)color {
     [self sharedManager].barColor = color;
-    [self sharedManager].backgroundImageView.backgroundColor = color;
 }
 
 + (void)setTintColor:(UIColor *)color {
@@ -49,7 +48,8 @@ static const float   kDefaultAnimationTime = 0.35f;
 }
 
 + (void)setBackgroundImage:(UIImage *)image {
-    [self sharedManager].backgroundImageView.image = image;
+    [[self sharedManager].selfNavigationBar setBackgroundImage:image
+                                                 forBarMetrics:UIBarMetricsDefault];
 }
 
 + (void)setStatusBarStyle:(UIStatusBarStyle)style {
@@ -95,11 +95,14 @@ static const float   kDefaultAnimationTime = 0.35f;
     [self sharedManager].continues = continues;
 }
 
++ (void)reStoreToSystemNavigationBar {
+    [[self sharedManager].selfNavigationController setValue:[UINavigationBar new] forKey:@"navigationBar"];
+}
+
 #pragma mark - Public Method
 + (void)managerWithController:(UIViewController *)viewController {
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
-    [self sharedManager].saveImage = ((UIImageView *)navigationBar.subviews.firstObject).image;
-    [self sharedManager].backgroundImageView = navigationBar.subviews.firstObject;
+    [self sharedManager].selfNavigationController = viewController.navigationController;
     [self sharedManager].selfNavigationBar = navigationBar;
     [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [navigationBar setShadowImage:[UIImage new]];
@@ -135,32 +138,6 @@ static const float   kDefaultAnimationTime = 0.35f;
     if (manager.allChange) [self changeTintColorWithOffset:currentAlpha];
 }
 
-+ (void)saveWithController:(UIViewController *)viewController {
-    MXNavigationBarManager *manager = [self sharedManager];
-    UINavigationBar *bar = viewController.navigationController.navigationBar;
-    manager.saveImage = ((UIImageView *)bar.subviews.firstObject).image;
-    manager.saveColor = bar.subviews.firstObject.backgroundColor;
-    manager.saveTintColor = bar.tintColor;
-    manager.saveTitleAttribute = bar.titleTextAttributes;
-    manager.saveBarStyle = [UIApplication sharedApplication].statusBarStyle;
-}
-
-+ (void)reStoreWithZeroStatus {
-    [self changeAlphaWithCurrentOffset:[self sharedManager].zeroAlphaOffset];
-}
-
-+ (void)reStoreWithFullStatus {
-    [self changeAlphaWithCurrentOffset:[self sharedManager].fullAlphaOffset];
-}
-
-+ (void)reStore {
-    MXNavigationBarManager *manager = [self sharedManager];
-    [manager.selfNavigationBar setBackgroundImage:manager.saveImage forBarMetrics:UIBarMetricsDefault];
-    manager.selfNavigationBar.subviews.firstObject.backgroundColor = manager.saveColor;
-    manager.selfNavigationBar.tintColor = manager.saveTintColor;
-    manager.selfNavigationBar.titleTextAttributes = manager.saveTitleAttribute;
-    [[UIApplication sharedApplication] setStatusBarStyle:manager.saveBarStyle];
-}
 
 #pragma mark - calculation
 + (float)curretAlphaForOffset:(CGFloat)offset {
@@ -211,8 +188,6 @@ static const float   kDefaultAnimationTime = 0.35f;
 }
 
 + (void)initBaseData:(MXNavigationBarManager *)manager {
-    manager.backgroundImageView = [[UIImageView alloc] initWithFrame:BACKGROUNDVIEW_FRAME];
-    manager.backgroundImageView.backgroundColor = [UIColor whiteColor];
     manager.maxAlphaValue = kMaxAlphaValue;
     manager.minAlphaValue = kMinAlphaValue;
     manager.fullAlphaOffset = kDefaultFullOffset;
@@ -231,11 +206,23 @@ static const float   kDefaultAnimationTime = 0.35f;
 
 + (void)setNavigationBarColorWithAlpha:(float)alpha {
     MXNavigationBarManager *manager = [self sharedManager];
-    manager.backgroundImageView.backgroundColor = [manager.barColor colorWithAlphaComponent:alpha];
+    NSLog(@"alpha = %f", alpha);
+    [self setBackgroundImage:[self imageWithColor:[manager.barColor colorWithAlphaComponent:alpha]]];
 }
 
 + (void)setUIStatusBarStyle:(UIStatusBarStyle)style {
     [[UIApplication sharedApplication] setStatusBarStyle:style];
+}
+
++ (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [color setFill];
+    CGContextFillRect(context, rect);
+    UIImage *imgae = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return imgae;
 }
 
 @end
